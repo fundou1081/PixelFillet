@@ -240,3 +240,11 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/PixelFillet/imgPixel_b文件后缀.bmp
+/PixelFillet/imgPixel_g文件后缀.bmp
+/PixelFillet/imgPixel_r文件后缀.bmp
+/PixelFillet/imgPixel_w文件后缀.bmp
+/PixelFillet/imgPixelwithTopHole_w文件后缀.bmp
+/PixelFillet/imgPixelwithTopHole_r文件后缀.bmp
+/PixelFillet/imgPixelwithTopHole_g文件后缀.bmp
+/PixelFillet/imgPixelwithTopHole_b文件后缀.bmp

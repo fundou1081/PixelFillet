@@ -273,7 +273,7 @@ void ReadConfig(string filename) {
 }
 
 void Delay(int time){
-    clockid_t now = clock();
+    clock_t now = clock();
     while(clock() - now < time);
 }
 
