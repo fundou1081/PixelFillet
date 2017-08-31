@@ -25,6 +25,8 @@ int c_cols=28;
 int rect_height=80;
 int rect_width=240;
 
+int alldataFlag=0;
+
 int delayFlag=1;
 
 
@@ -225,6 +227,19 @@ void ImageSetRegionMirrorY(Mat &imgPixel, int RGBW, int leftUpX, int leftUpY, in
 	}
 }
 
+void GenerateImg(Mat &imgPixel, vector<vector<int> > &imgdata){
+
+	for (int j = 0; j<imgPixel.rows; j++)
+	{
+		for (int i = 0; i<imgPixel.cols; i++)
+		{
+            imgPixel.at<Vec3b>(j, i)[0] = imgdata[j][i*3+2];//B
+			imgPixel.at<Vec3b>(j, i)[1] = imgdata[j][i*3+1];//G
+			imgPixel.at<Vec3b>(j, i)[2] = imgdata[j][i*3];//R
+		}
+	}
+
+}
 
 void ReadData(vector<vector<int> > &pixel, string filename, int rows, int cols)
 {
@@ -268,12 +283,13 @@ void ReadConfig(string filename) {
     file >> rect_height;
     file >> rect_width;
 
+    file >> alldataFlag;
     file >> delayFlag;
 	file.close();
 }
 
 void Delay(int time){
-    clock_t now = clock();
+    clockid_t now = clock();
     while(clock() - now < time);
 }
 
@@ -492,6 +508,15 @@ int main()
     }
 
 /////////////////////////////////////////////////////////////////////
+    vector<vector<int> > imgdata(sc_rows, vector<int>(sc_cols*3));
+
+    if(alldataFlag==1){
+        filename = path + "/pixel_all.txt";
+        ReadData(imgdata,filename,sc_rows,sc_cols*3);
+        GenerateImg(imgPixel,imgdata);
+        imgname = path + "/imgPixelRawData"+ fileversion+".bmp";
+        imwrite(imgname, imgPixel);
+    }
 
 
 	//namedWindow("imgPixel",WINDOW_NORMAL);
